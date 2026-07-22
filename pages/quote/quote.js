@@ -103,7 +103,7 @@ Page({
 
   // 选择活动纪录时长类型
   selectEventDuration(e) {
-    const type = e.currentTarget.dataset.type
+    const type = e.currentTarget.dataset.id
     this.setData({ eventDurationType: type })
     this.calculate()
   },
