@@ -214,6 +214,9 @@ Page({
       if (dur <= 5) {
         filmPrice = 8000
         filmDetail = '5分钟内起拍'
+      } else if (dur < 20) {
+        filmPrice = 8000 + 1200 * (dur - 5)
+        filmDetail = `5分钟内 ¥8000 + ${dur - 5}分钟 × ¥1200`
       } else {
         filmPrice = 8000 + 1000 * (dur - 5)
         filmDetail = `5分钟内 ¥8000 + ${dur - 5}分钟 × ¥1000`
