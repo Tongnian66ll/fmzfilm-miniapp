@@ -51,7 +51,7 @@
       <text class="about-company">南京分秒帧影视有限公司</text>
       <text class="about-desc">专业影视制作团队\n50+项目经验 · 18项电影节入围\n从创意到成片，以帧级精度打磨每一部作品</text>
       <view class="about-close" bindtap="closeAbout">关闭</view>
-      <!-- 彩蛋触发点：不起眼的版本号 -->
+      <!-- 彩蛋触发点 -->
       <text class="about-version" bindtap="onVersionTap">v1.0</text>
     </view>
   </view>

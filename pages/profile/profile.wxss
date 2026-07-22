@@ -28,13 +28,23 @@
 .menu-item {
   display: flex;
   align-items: center;
-  padding: 32rpx 16rpx;
+  justify-content: space-between;
+  padding: 32rpx 24rpx;
   border-bottom: 1rpx solid rgba(255,255,255,0.05);
 }
+.menu-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
 .menu-icon { font-size: 40rpx; margin-right: 24rpx; }
-.menu-text { flex: 1; }
 .menu-label { display: block; font-size: 30rpx; color: #fff; }
-.menu-desc { display: block; font-size: 22rpx; color: rgba(255,255,255,0.4); margin-top: 4rpx; }
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.menu-desc { display: block; font-size: 22rpx; color: rgba(255,255,255,0.4); }
 .menu-arrow { font-size: 36rpx; color: rgba(255,255,255,0.3); }
 
 /* 底部 */
@@ -70,25 +80,6 @@
 .qr-tip { display: block; font-size: 22rpx; color: rgba(255,255,255,0.4); margin-bottom: 32rpx; }
 .qr-btns { display: flex; gap: 16rpx; }
 .qr-btn { flex: 1; font-size: 26rpx; padding: 18rpx 0; }
-
-/* 待处理角标 */
-.menu-right {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-}
-.badge {
-  background: #ff4444;
-  border-radius: 20rpx;
-  padding: 2rpx 12rpx;
-  min-width: 36rpx;
-  text-align: center;
-}
-.badge-text {
-  font-size: 22rpx;
-  color: #fff;
-  font-weight: 600;
-}
 
 /* 关于我们弹窗 */
 .about-popup {
