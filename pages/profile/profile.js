@@ -5,9 +5,10 @@ Page({
     userInfo: null,
     isLoggedIn: false,
     showWechatQR: false,
+    pendingCount: 0,
     menuItems: [
+      { id: 'my-bookings', label: '预约管理', icon: '📋' },
       { id: 'wechat', label: '添加微信', icon: '💬', desc: '微信号：njfmz1' },
-      { id: 'my-bookings', label: '我的预约', icon: '📋' },
       { id: 'about', label: '关于我们', icon: '🏢' },
       { id: 'share', label: '分享给朋友', icon: '📤' },
     ]
@@ -15,6 +16,7 @@ Page({
 
   onShow() {
     this.checkLogin()
+    this.loadPendingCount()
   },
 
   checkLogin() {
@@ -23,6 +25,32 @@ Page({
       this.setData({ userInfo, isLoggedIn: true })
     } else {
       this.setData({ userInfo: null, isLoggedIn: false })
+    }
+  },
+
+  async loadPendingCount() {
+    try {
+      // 尝试从云端获取待处理数量
+      const res = await wx.cloud.callFunction({
+        name: 'getAllBookings',
+        data: {}
+      })
+      if (res.result && res.result.success) {
+        const pendingCount = (res.result.data || []).filter(b => b.status === 'pending').length
+        this.setData({ pendingCount })
+      }
+    } catch (e) {
+      // 云端不可用，尝试本地
+      try {
+        const db = wx.cloud.database()
+        const _ = db.command
+        const res = await db.collection('bookings')
+          .where({ status: 'pending' })
+          .count()
+        this.setData({ pendingCount: res.total })
+      } catch (e2) {
+        console.log('获取待处理数量失败', e2)
+      }
     }
   },
 
@@ -43,14 +71,11 @@ Page({
   onMenuTap(e) {
     const id = e.currentTarget.dataset.id
     switch (id) {
+      case 'my-bookings':
+        wx.navigateTo({ url: '/pages/admin-bookings/admin-bookings' })
+        break
       case 'wechat':
         this.setData({ showWechatQR: true })
-        break
-      case 'my-bookings':
-        wx.navigateTo({ url: '/pages/bookings-list/bookings-list' })
-        break
-      case 'my-bookings-old':
-        wx.showToast({ title: '功能开发中', icon: 'none' })
         break
       case 'about':
         wx.showModal({

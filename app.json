@@ -6,7 +6,8 @@
     "pages/quote/quote",
     "pages/booking/booking",
     "pages/profile/profile",
-    "pages/bookings-list/bookings-list"
+    "pages/bookings-list/bookings-list",
+    "pages/admin-bookings/admin-bookings"
   ],
   "window": {
     "backgroundTextStyle": "dark",

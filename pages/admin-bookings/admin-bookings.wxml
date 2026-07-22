@@ -1,0 +1,90 @@
+<view class="page container">
+  <view class="section-header">
+    <text class="section-overline">ADMIN</text>
+    <text class="section-title">预约管理</text>
+    <text class="section-desc" wx:if="{{!loading}}">共 {{bookings.length}} 条预约记录</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 未授权 -->
+  <view class="empty-state" wx:elif="{{!isAdmin}}">
+    <text class="empty-icon">🔒</text>
+    <text class="empty-text">仅限管理员查看</text>
+  </view>
+
+  <!-- 无记录 -->
+  <view class="empty-state" wx:elif="{{bookings.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无预约记录</text>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="booking-list" wx:else>
+    <!-- 状态筛选 -->
+    <view class="filter-tabs">
+      <view class="filter-tab {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="setFilter">全部</view>
+      <view class="filter-tab {{filter === 'pending' ? 'active' : ''}}" data-filter="pending" bindtap="setFilter">待处理</view>
+      <view class="filter-tab {{filter === 'confirmed' ? 'active' : ''}}" data-filter="confirmed" bindtap="setFilter">已确认</view>
+      <view class="filter-tab {{filter === 'completed' ? 'active' : ''}}" data-filter="completed" bindtap="setFilter">已完成</view>
+    </view>
+
+    <view class="booking-card" wx:for="{{filteredBookings}}" wx:key="_id">
+      <view class="booking-header">
+        <view class="booking-title-row">
+          <text class="booking-service">{{item.serviceType || '未指定'}}</text>
+          <view class="status-badge status-{{item.status}}">
+            <text>{{item.status === 'pending' ? '待处理' : item.status === 'confirmed' ? '已确认' : item.status === 'completed' ? '已完成' : item.status}}</text>
+          </view>
+        </view>
+        <text class="booking-time">{{item.createTimeStr}}</text>
+      </view>
+
+      <view class="booking-body">
+        <view class="info-row">
+          <text class="info-label">联系人</text>
+          <text class="info-value">{{item.name}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">电话</text>
+          <view class="phone-row" bindtap="callPhone" data-phone="{{item.phone}}">
+            <text class="info-value phone-link">{{item.phone}}</text>
+            <text class="call-icon">📞</text>
+          </view>
+        </view>
+        <view class="info-row" wx:if="{{item.budget}}">
+          <text class="info-label">预算</text>
+          <text class="info-value">{{item.budget}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.estimatedPrice}}">
+          <text class="info-label">预估报价</text>
+          <text class="info-value price">¥{{item.estimatedPrice}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.description}}">
+          <text class="info-label">需求描述</text>
+          <text class="info-value desc">{{item.description}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.quoteDetail}}">
+          <text class="info-label">报价详情</text>
+          <text class="info-value desc quote-detail" bindtap="showQuoteDetail" data-detail="{{item.quoteDetail}}">查看明细 ›</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="booking-footer">
+        <button class="btn-status" wx:if="{{item.status === 'pending'}}" 
+                data-id="{{item._id}}" data-status="confirmed" bindtap="updateStatus">
+          确认预约
+        </button>
+        <button class="btn-status" wx:if="{{item.status === 'confirmed'}}" 
+                data-id="{{item._id}}" data-status="completed" bindtap="updateStatus">
+          标记完成
+        </button>
+        <button class="btn-contact" open-type="contact">联系客服</button>
+      </view>
+    </view>
+  </view>
+</view>
