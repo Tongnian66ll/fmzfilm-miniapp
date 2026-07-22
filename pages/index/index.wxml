@@ -3,7 +3,7 @@
   <view class="hero">
     <view class="hero-bg"></view>
     <view class="hero-content">
-      <image class="hero-logo" src="/images/logo-fmf.webp" mode="aspectFit" />
+      <image class="hero-logo" src="/images/logo-fmf.jpg" mode="aspectFit" />
       <view class="hero-badge">
         <view class="badge-dot"></view>
         <text class="badge-text">AVAILABLE FOR WORK</text>
