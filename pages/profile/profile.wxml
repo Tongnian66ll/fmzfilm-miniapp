@@ -35,12 +35,35 @@
   </view>
 
   <!-- 微信二维码弹窗 -->
-  <view class="qr-modal" wx:if="{{showWechatQR}}" bindtap="closeWechatQR">
-    <view class="qr-content" catchtap="">
+  <view class="qr-mask" wx:if="{{showWechatQR}}" bindtap="closeWechatQR">
+    <view class="qr-popup" catchtap="">
       <image class="qr-image" src="/images/wechat-qr.jpg" mode="aspectFit" show-menu-by-longpress />
       <text class="qr-tip">长按识别二维码添加微信</text>
       <text class="qr-wechat">微信号：njfmz1</text>
       <view class="qr-close" bindtap="closeWechatQR">✕</view>
+    </view>
+  </view>
+
+  <!-- 关于我们弹窗 -->
+  <view class="qr-mask" wx:if="{{showAbout}}" bindtap="closeAbout">
+    <view class="about-popup" catchtap="">
+      <text class="about-title">分秒帧影视</text>
+      <text class="about-company">南京分秒帧影视有限公司</text>
+      <text class="about-desc">专业影视制作团队\n50+项目经验 · 18项电影节入围\n从创意到成片，以帧级精度打磨每一部作品</text>
+      <view class="about-close" bindtap="closeAbout">关闭</view>
+      <!-- 彩蛋触发点：不起眼的版本号 -->
+      <text class="about-version" bindtap="onVersionTap">v1.0</text>
+    </view>
+  </view>
+
+  <!-- 密码输入弹窗 -->
+  <view class="qr-mask" wx:if="{{showPwdDialog}}" bindtap="closePwd">
+    <view class="pwd-popup" catchtap="">
+      <text class="pwd-title">🔐 管理员验证</text>
+      <text class="pwd-subtitle">请输入管理密码</text>
+      <input class="pwd-input" password="{{true}}" placeholder="请输入密码" value="{{pwdInput}}" bindinput="onPwdInput" bindconfirm="verifyPassword" />
+      <view class="pwd-btn" bindtap="verifyPassword">确认</view>
+      <text class="pwd-close" bindtap="closePwd">取消</text>
     </view>
   </view>
 </view>

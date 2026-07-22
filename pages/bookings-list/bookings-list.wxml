@@ -1,0 +1,73 @@
+<view class="page container">
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && bookings.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-title">暂无预约记录</text>
+    <text class="empty-desc">提交预约后即可在此查看详情</text>
+    <view class="empty-btn" bindtap="goBooking">
+      <text>去预约</text>
+    </view>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="booking-list" wx:if="{{bookings.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">提交记录（{{bookings.length}}）</text>
+    </view>
+
+    <view class="booking-card" wx:for="{{bookings}}" wx:key="_id">
+      <!-- 状态标签 -->
+      <view class="card-header">
+        <text class="status status-{{item.status}}">
+          {{item.status === 'pending' ? '待处理' : item.status === 'confirmed' ? '已确认' : item.status === 'completed' ? '已完成' : item.status === 'cancelled' ? '已取消' : '待处理'}}
+        </text>
+        <text class="booking-time">{{item.createTimeStr || ''}}</text>
+      </view>
+
+      <!-- 基本信息 -->
+      <view class="card-body">
+        <view class="info-row">
+          <text class="info-label">服务类型</text>
+          <text class="info-value">{{item.serviceType}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">姓名</text>
+          <text class="info-value">{{item.name}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">手机号</text>
+          <text class="info-value">{{item.phone}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.budget}}">
+          <text class="info-label">预算</text>
+          <text class="info-value">{{item.budget}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.estimatedPrice}}">
+          <text class="info-label">预估报价</text>
+          <text class="info-value price">¥{{item.estimatedPrice}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.description}}">
+          <text class="info-label">需求描述</text>
+          <text class="info-value desc">{{item.description}}</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="card-footer">
+        <view class="btn-wechat" bindtap="copyWechat">
+          <text>添加微信沟通</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="list-footer">
+      <text class="footer-text">* 预约数据保存在本地，清除缓存后会丢失</text>
+      <text class="footer-tip">建议添加微信 njfmz1 确认预约详情</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
