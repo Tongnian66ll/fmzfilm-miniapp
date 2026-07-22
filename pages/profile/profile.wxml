@@ -1,20 +1,16 @@
-<view class="page container">
-  <!-- 用户信息 -->
+<view class="container">
+  <!-- 用户信息区 -->
   <view class="user-section">
-    <view class="avatar-wrap" bindtap="getUserProfile" wx:if="{{!isLoggedIn}}">
-      <image class="avatar" src="/images/avatar-taoyx.webp" mode="aspectFill" />
+    <view class="avatar-wrap" bindtap="getUserProfile">
+      <image wx:if="{{userInfo}}" class="avatar" src="{{userInfo.avatarUrl}}" />
+      <view wx:else class="avatar-default">
+        <text class="avatar-icon">👤</text>
+      </view>
     </view>
-    <view class="avatar-wrap" bindtap="getUserProfile" wx:else>
-      <image class="avatar" src="{{userInfo.avatarUrl || '/images/avatar-taoyx.webp'}}" mode="aspectFill" />
-    </view>
-    <view class="user-info">
-      <text class="user-name">{{userInfo.nickName || '访客用户'}}</text>
-      <text class="user-desc" wx:if="{{isLoggedIn}}">欢迎回来</text>
-      <text class="user-desc" wx:else>点击头像登录</text>
-    </view>
+    <text class="user-name">{{userInfo.nickName || '点击登录'}}</text>
   </view>
 
-  <!-- 菜单 -->
+  <!-- 菜单列表 -->
   <view class="menu-list">
     <view class="menu-item" wx:for="{{menuItems}}" wx:key="id" bindtap="onMenuTap" data-id="{{item.id}}">
       <view class="menu-left">
@@ -22,36 +18,25 @@
         <text class="menu-label">{{item.label}}</text>
       </view>
       <view class="menu-right">
-        <text class="menu-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
-        <text class="menu-arrow">></text>
+        <text wx:if="{{item.desc}}" class="menu-desc">{{item.desc}}</text>
+        <text class="menu-arrow">›</text>
       </view>
     </view>
   </view>
 
-  <!-- 底部版权 -->
+  <!-- 底部信息 -->
   <view class="footer-info">
-    <text class="footer-text">南京分秒帧影视有限公司</text>
+    <text class="footer-text">© 2026 分秒帧影视</text>
     <text class="footer-ver" catchtap="onVersionTap">v1.0</text>
   </view>
 
   <!-- 微信二维码弹窗 -->
   <view class="qr-mask" wx:if="{{showWechatQR}}" catchtap="closeWechatQR">
     <view class="qr-popup" catchtap="">
-      <image class="qr-image" src="/images/wechat-qr.jpg" mode="aspectFit" show-menu-by-longpress />
-      <text class="qr-tip">长按识别二维码添加微信</text>
+      <image class="qr-image" src="/images/wechat-qr.jpg" mode="aspectFit" />
+      <text class="qr-tip">长按识别图中二维码添加微信</text>
       <text class="qr-wechat">微信号：njfmz1</text>
-      <view class="qr-close" catchtap="closeWechatQR">X</view>
-    </view>
-  </view>
-
-  <!-- 密码输入弹窗 -->
-  <view class="qr-mask" wx:if="{{showPwdDialog}}" catchtap="closePwd">
-    <view class="pwd-popup" catchtap="">
-      <text class="pwd-title">管理员验证</text>
-      <text class="pwd-subtitle">请输入管理密码</text>
-      <input class="pwd-input" password="{{true}}" placeholder="请输入密码" value="{{pwdInput}}" bindinput="onPwdInput" bindconfirm="verifyPassword" />
-      <view class="pwd-btn" catchtap="verifyPassword">确认</view>
-      <text class="pwd-close" catchtap="closePwd">取消</text>
+      <text class="qr-close" catchtap="closeWechatQR">✕</text>
     </view>
   </view>
 </view>

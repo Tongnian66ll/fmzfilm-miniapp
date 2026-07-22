@@ -8,8 +8,6 @@ Page({
     userInfo: null,
     isLoggedIn: false,
     showWechatQR: false,
-    showPwdDialog: false,
-    pwdInput: '',
     easterEggCount: 0,
     menuItems: [
       { id: 'my-bookings', label: '我的预约', icon: '📋', desc: '查看提交记录' },
@@ -74,37 +72,39 @@ Page({
     this.setData({ easterEggCount: count })
 
     if (count >= 5) {
-      this.setData({ showPwdDialog: true, easterEggCount: 0 })
+      this.setData({ easterEggCount: 0 })
+      this.showPasswordModal()
     } else if (count >= 3) {
       wx.showToast({ title: `还差${5 - count}次`, icon: 'none', duration: 800 })
     }
   },
 
-  onPwdInput(e) {
-    this.setData({ pwdInput: e.detail.value })
-  },
-
-  verifyPassword() {
-    const { pwdInput } = this.data
-    if (pwdInput === ADMIN_PASSWORD) {
-      this.setData({ showPwdDialog: false, pwdInput: '' })
-      wx.showToast({ title: '验证通过', icon: 'success' })
-      setTimeout(() => {
-        wx.navigateTo({ url: '/pages/admin-bookings/admin-bookings' })
-      }, 800)
-    } else {
-      wx.showToast({ title: '密码错误', icon: 'none' })
-      this.setData({ pwdInput: '' })
-    }
+  showPasswordModal() {
+    wx.showModal({
+      title: '管理员验证',
+      content: '请输入管理密码',
+      editable: true,
+      placeholderText: '请输入密码',
+      confirmText: '确认',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          if (res.content === ADMIN_PASSWORD) {
+            wx.showToast({ title: '验证通过', icon: 'success' })
+            setTimeout(() => {
+              wx.navigateTo({ url: '/pages/admin-bookings/admin-bookings' })
+            }, 800)
+          } else {
+            wx.showToast({ title: '密码错误', icon: 'none' })
+          }
+        }
+      }
+    })
   },
 
   // ========== 弹窗控制 ==========
   closeWechatQR() {
     this.setData({ showWechatQR: false })
-  },
-
-  closePwd() {
-    this.setData({ showPwdDialog: false, pwdInput: '' })
   },
 
   onShareAppMessage() {
