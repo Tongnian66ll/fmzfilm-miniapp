@@ -6,7 +6,7 @@
       <image class="hero-logo" src="/images/logo-fmf.png" mode="aspectFit" />
       <view class="hero-badge">
         <view class="badge-dot"></view>
-        <text class="badge-text">AVAILABLE FOR WORK</text>
+        <text class="badge-text">FenMiaoZFilm Co., Ltd</text>
       </view>
       <text class="hero-title">{{bannerTitle}}</text>
       <text class="hero-subtitle">{{bannerSubtitle}}</text>
