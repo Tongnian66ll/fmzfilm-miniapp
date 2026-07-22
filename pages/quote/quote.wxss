@@ -126,3 +126,91 @@
   margin-top: 40rpx;
 }
 .quote-actions button { flex: 1; font-size: 28rpx; }
+
+/* 数量后缀 */
+.qty-suffix {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+  margin-left: 12rpx;
+}
+
+/* 套餐选择 */
+.plan-options { display: flex; flex-direction: column; gap: 12rpx; }
+.plan-option {
+  padding: 22rpx 20rpx;
+  background: rgba(255,255,255,0.03);
+  border: 2rpx solid rgba(255,255,255,0.06);
+  border-radius: 12rpx;
+  transition: all 0.3s;
+}
+.plan-option.selected {
+  border-color: #2563eb;
+  background: rgba(37,99,235,0.08);
+}
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plan-name { font-size: 28rpx; color: #fff; font-weight: 500; }
+.plan-price { font-size: 32rpx; color: #2563eb; font-weight: 700; }
+.plan-unit { font-size: 22rpx; color: rgba(255,255,255,0.4); font-weight: 400; }
+.plan-desc { display: block; font-size: 22rpx; color: rgba(255,255,255,0.4); margin-top: 8rpx; }
+
+/* 时长切换 */
+.duration-options { display: flex; gap: 16rpx; }
+.duration-option {
+  flex: 1;
+  padding: 22rpx 20rpx;
+  background: rgba(255,255,255,0.03);
+  border: 2rpx solid rgba(255,255,255,0.06);
+  border-radius: 12rpx;
+  text-align: center;
+  transition: all 0.3s;
+}
+.duration-option.selected {
+  border-color: #2563eb;
+  background: rgba(37,99,235,0.08);
+}
+.duration-name { display: block; font-size: 28rpx; color: #fff; font-weight: 500; }
+.duration-price { display: block; font-size: 32rpx; color: #2563eb; font-weight: 700; margin-top: 6rpx; }
+
+/* 附加服务数量输入行 */
+.addon-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 20rpx 12rpx 64rpx;
+  margin-bottom: 8rpx;
+}
+.addon-qty-label {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.5);
+}
+.qty-control-sm { display: flex; align-items: center; }
+.qty-btn-sm {
+  width: 56rpx; height: 48rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28rpx;
+}
+.qty-input-sm {
+  width: 80rpx; height: 48rpx;
+  background: rgba(255,255,255,0.04);
+  border: 1rpx solid rgba(255,255,255,0.1);
+  border-radius: 8rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 24rpx;
+  margin: 0 8rpx;
+}
+
+/* 另算标记 */
+.breakdown-custom {
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+}

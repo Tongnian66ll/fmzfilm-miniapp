@@ -206,55 +206,99 @@ const cases = [
   }
 ]
 
+// 报价配置 - 每个服务有独立的附加服务和定价规则
 const quoteConfig = {
+  // 所有可用附加服务（按ID索引）
+  allAddons: {
+    'drone':      { id: 'drone',   name: '航拍',       price: 800,  unit: '次', pricingType: 'fixed' },
+    'script':     { id: 'script',  name: '脚本策划',   price: 1500, unit: '项', pricingType: 'fixed' },
+    'actor':      { id: 'actor',   name: '演员',       price: 1500, unit: '人', pricingType: 'fixed' },
+    'ad-monitor': { id: 'ad-monitor', name: '投流盯盘', price: 500, unit: '月', pricingType: 'perQuantity', note: '投流花费实报实销' },
+    'photo-live': { id: 'photo-live', name: '图片直播', price: 600, unit: '次', pricingType: 'fixed' },
+    'video-edit': { id: 'video-edit', name: '视频剪辑', price: 200, unit: '分钟', pricingType: 'perAddonQty' },
+    'extra-actor':{ id: 'extra-actor', name: '额外演员', price: 500, unit: '人/天', pricingType: 'threshold', threshold: 5, note: '超过5人，每多1人+500/天' },
+    'extra-scene':{ id: 'extra-scene', name: '额外场景', price: 800, unit: '个/天', pricingType: 'threshold', threshold: 4, note: '超过4个，每多1个+800/天' },
+    'vfx':        { id: 'vfx',     name: '后期特效',   price: 0,   unit: '项', pricingType: 'custom', note: '费用另算' },
+    'orig-music': { id: 'orig-music', name: '原创音乐', price: 120, unit: '分钟', pricingType: 'perAddonQty' }
+  },
+  // 每个服务对应的附加服务ID列表
+  serviceAddons: {
+    'propaganda':  ['drone', 'script', 'actor'],
+    'tvc':         ['drone', 'script', 'actor'],
+    'short-video': ['ad-monitor'],
+    'event':       ['photo-live', 'video-edit'],
+    'short-film':  ['extra-actor', 'extra-scene', 'vfx', 'orig-music']
+  },
+  // 服务列表
   services: [
     {
       id: 'propaganda',
       name: '宣传片',
-      unit: '分钟',
-      basePrice: 6000,
+      icon: '🎬',
       description: '企业宣传片、城市宣传片、产品宣传片',
-      icon: '🎬'
+      basePrice: 6000,
+      priceLabel: '¥6000起',
+      unitLabel: '1分钟',
+      configType: 'duration',
+      durationLabel: '时长（分钟）',
+      durationUnit: '分钟',
+      durationMin: 1
     },
     {
       id: 'tvc',
       name: 'TVC广告',
-      unit: '分钟',
-      basePrice: 8000,
+      icon: '📺',
       description: '品牌TVC、产品广告、信息流广告',
-      icon: '📺'
+      basePrice: 8000,
+      priceLabel: '¥8000起',
+      unitLabel: '1分钟',
+      configType: 'duration',
+      durationLabel: '时长（分钟）',
+      durationUnit: '分钟',
+      durationMin: 1
     },
     {
       id: 'short-video',
       name: '短视频代运营',
-      unit: '月',
+      icon: '📱',
+      description: '账号运营、内容策划、拍摄剪辑',
       basePrice: 1999,
-      description: '账号运营、内容策划、拍摄剪辑、数据分析',
-      icon: '📱'
+      priceLabel: '¥1999起',
+      unitLabel: '月',
+      configType: 'plan',
+      plans: [
+        { id: 'monthly',    name: '月度套餐', price: 1999, unit: '月', desc: '20条信息流拍剪 或 40条纯剪辑' },
+        { id: 'half-year',  name: '半年套餐', price: 1500, unit: '月', desc: '一次下单6个月' },
+        { id: 'yearly',     name: '包年套餐', price: 1299, unit: '月', desc: '一次性包年' }
+      ]
     },
     {
       id: 'event',
       name: '活动纪录',
-      unit: '天',
-      basePrice: 800,
+      icon: '📹',
       description: '会议纪录、活动直播、展会拍摄',
-      icon: '📹'
+      basePrice: 800,
+      priceLabel: '¥800起',
+      unitLabel: '4小时',
+      configType: 'durationToggle',
+      durationOptions: [
+        { id: 'half', name: '4小时', price: 800 },
+        { id: 'full', name: '一天(8h)', price: 1600 }
+      ]
     },
     {
       id: 'short-film',
       name: '短片/微电影',
-      unit: '5分钟内',
-      basePrice: 8000,
+      icon: '🎥',
       description: '品牌微电影、故事短片、创意短片',
-      icon: '🎥'
+      basePrice: 8000,
+      priceLabel: '¥8000起',
+      unitLabel: '5分钟内',
+      configType: 'duration',
+      durationLabel: '时长（分钟）',
+      durationUnit: '分钟',
+      durationMin: 1
     }
-  ],
-  addons: [
-    { id: 'drone', name: '航拍', price: 2000, unit: '天' },
-    { id: 'model', name: '模特/演员', price: 3000, unit: '天' },
-    { id: 'script', name: '脚本策划', price: 3000, unit: '项' },
-    { id: 'animation', name: '后期特效/动画', price: 2000, unit: '项' },
-    { id: 'music', name: '音乐/配音', price: 1500, unit: '项' }
   ]
 }
 
