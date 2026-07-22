@@ -1,0 +1,49 @@
+<view class="page container">
+  <!-- 用户信息区 -->
+  <view class="profile-header">
+    <view class="avatar-wrap">
+      <image class="avatar" wx:if="{{isLoggedIn}}" src="{{userInfo.avatarUrl}}" />
+      <view class="avatar avatar-placeholder" wx:else>F</view>
+    </view>
+    <view class="user-info">
+      <text class="user-name" wx:if="{{isLoggedIn}}">{{userInfo.nickName}}</text>
+      <text class="user-name" wx:else>未登录</text>
+      <text class="user-desc" wx:if="{{!isLoggedIn}}">点击登录</text>
+    </view>
+    <view class="login-btn" wx:if="{{!isLoggedIn}}" bindtap="getUserProfile">登录</view>
+  </view>
+
+  <view class="divider"></view>
+
+  <!-- 菜单列表 -->
+  <view class="menu-list">
+    <view class="menu-item" wx:for="{{menuItems}}" wx:key="id" data-id="{{item.id}}" bindtap="onMenuTap">
+      <text class="menu-icon">{{item.icon}}</text>
+      <view class="menu-text">
+        <text class="menu-label">{{item.label}}</text>
+        <text class="menu-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="footer-info">
+    <text class="footer-text">分秒帧影视 v1.0.0</text>
+    <text class="footer-text">南京分秒帧影视有限公司</text>
+  </view>
+
+  <!-- 微信二维码弹窗 -->
+  <view class="qr-mask" wx:if="{{showWechatQR}}" bindtap="closeWechatQR">
+    <view class="qr-popup" catchtap="">
+      <text class="qr-title">扫码添加微信</text>
+      <text class="qr-subtitle">专业顾问一对一服务</text>
+      <image class="qr-image" src="/images/wechat-qr.jpg" mode="aspectFit" show-menu-by-longpress />
+      <text class="qr-tip">长按二维码可直接添加</text>
+      <view class="qr-btns">
+        <button class="btn-outline qr-btn" bindtap="copyWechat">复制微信号 njfmz1</button>
+        <button class="btn-primary qr-btn" bindtap="closeWechatQR">我知道了</button>
+      </view>
+    </view>
+  </view>
+</view>

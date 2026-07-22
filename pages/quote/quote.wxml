@@ -1,0 +1,88 @@
+<view class="page container">
+  <view class="section-header">
+    <text class="section-overline">PRICE LIST</text>
+    <text class="section-title">服务报价</text>
+    <text class="section-desc">选择服务类型，获取预估费用</text>
+  </view>
+
+  <!-- 服务列表 -->
+  <view class="service-list">
+    <view
+      class="service-item {{selectedService.id === item.id ? 'selected' : ''}}"
+      wx:for="{{services}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="selectService"
+    >
+      <view class="service-left">
+        <text class="service-icon">{{item.icon}}</text>
+        <view class="service-text">
+          <text class="service-name">{{item.name}}</text>
+          <text class="service-desc">{{item.description}}</text>
+        </view>
+      </view>
+      <view class="service-right">
+        <text class="service-price">¥{{item.basePrice}}<text class="service-from">起</text></text>
+        <text class="service-unit">{{item.unit}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选中后的详细配置 -->
+  <view class="config-section" wx:if="{{selectedService}}">
+    <view class="divider"></view>
+    
+    <!-- 数量 -->
+    <view class="quantity-section">
+      <text class="field-label">{{selectedService.name}}数量（{{selectedService.unit}}）</text>
+      <view class="quantity-control">
+        <view class="qty-btn" bindtap="quantityMinus">−</view>
+        <input class="qty-input" type="number" value="{{quantity}}" bindinput="quantityChange" />
+        <view class="qty-btn" bindtap="quantityAdd">+</view>
+      </view>
+    </view>
+
+    <!-- 附加服务 -->
+    <view class="addons-section">
+      <text class="field-label">附加服务（可选）</text>
+      <view class="addons-list">
+        <view
+          class="addon-item {{selectedAddons.indexOf(item.id) > -1 ? 'selected' : ''}}"
+          wx:for="{{addons}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="toggleAddon"
+        >
+          <view class="addon-check">{{selectedAddons.indexOf(item.id) > -1 ? '✓' : ''}}</view>
+          <view class="addon-info">
+            <text class="addon-name">{{item.name}}</text>
+            <text class="addon-price">+¥{{item.price}}/{{item.unit}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 报价结果 -->
+    <view class="quote-result" wx:if="{{totalPrice > 0}}">
+      <view class="divider"></view>
+      <view class="breakdown">
+        <view class="breakdown-item" wx:for="{{priceBreakdown}}" wx:key="label">
+          <view class="breakdown-left">
+            <text class="breakdown-label">{{item.label}}</text>
+            <text class="breakdown-detail">{{item.detail}}</text>
+          </view>
+          <text class="breakdown-amount">¥{{item.amount}}</text>
+        </view>
+      </view>
+      <view class="divider"></view>
+      <view class="total-row">
+        <text class="total-label">预估总价</text>
+        <text class="total-price">¥{{totalPrice}}</text>
+      </view>
+      <view class="quote-actions">
+        <button class="btn-primary" bindtap="goBooking">立即预约</button>
+        <button class="btn-outline" open-type="contact">咨询客服</button>
+      </view>
+    </view>
+  </view>
+</view>

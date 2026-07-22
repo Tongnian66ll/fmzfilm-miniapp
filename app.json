@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cases/cases",
+    "pages/case-detail/case-detail",
+    "pages/quote/quote",
+    "pages/booking/booking",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0a0a0f",
+    "navigationBarTitleText": "分秒帧影视",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0a0a0f"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#2563eb",
+    "backgroundColor": "#0a0a0f",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/cases/cases",
+        "text": "案例",
+        "iconPath": "images/tab-case.png",
+        "selectedIconPath": "images/tab-case-active.png"
+      },
+      {
+        "pagePath": "pages/quote/quote",
+        "text": "报价",
+        "iconPath": "images/tab-quote.png",
+        "selectedIconPath": "images/tab-quote-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

@@ -1,0 +1,42 @@
+<view class="page container">
+  <!-- 分类筛选 -->
+  <scroll-view class="category-scroll" scroll-x enable-flex>
+    <view
+      class="category-tag {{activeCategory === item ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="*this"
+      data-cat="{{item}}"
+      bindtap="switchCategory"
+    >{{item}}</view>
+  </scroll-view>
+
+  <!-- 案例列表 -->
+  <view class="cases-list" wx:if="{{!loading && cases.length > 0}}">
+    <view class="case-card" wx:for="{{cases}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+      <view class="case-img-wrap">
+        <image class="case-img" src="{{item.coverUrl}}" mode="aspectFill" lazy-load />
+      </view>
+      <view class="case-info">
+        <text class="case-title">{{item.title}}</text>
+        <text class="case-desc">{{item.description}}</text>
+        <view class="case-tags">
+          <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="case-meta">
+          <text class="case-year">{{item.year}}</text>
+          <text class="case-duration">{{item.duration}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && cases.length === 0}}">
+    <text class="empty-text">暂无该分类下的案例</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

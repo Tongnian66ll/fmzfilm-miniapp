@@ -1,0 +1,62 @@
+<view class="page">
+  <!-- Hero Section -->
+  <view class="hero">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <view class="badge-dot"></view>
+        <text class="badge-text">AVAILABLE FOR WORK</text>
+      </view>
+      <text class="hero-title">{{bannerTitle}}</text>
+      <text class="hero-subtitle">{{bannerSubtitle}}</text>
+      <view class="hero-btns">
+        <button class="btn-primary hero-btn" open-type="contact">联系我们</button>
+        <button class="btn-outline hero-btn" bindtap="goQuote">获取报价</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Stats -->
+  <view class="stats-section">
+    <view class="divider"></view>
+    <view class="stats-grid">
+      <view class="stat-item" wx:for="{{stats}}" wx:key="label">
+        <text class="stat-value">{{item.value}}</text>
+        <text class="stat-label">{{item.label}}</text>
+      </view>
+    </view>
+    <view class="divider"></view>
+  </view>
+
+  <!-- Featured Cases -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-overline">FEATURED WORK</text>
+      <text class="section-title">精选案例</text>
+    </view>
+    <view class="cases-grid">
+      <view class="case-card" wx:for="{{featuredCases}}" wx:key="_id" bindtap="goCaseDetail" data-id="{{item._id}}">
+        <view class="case-img-wrap">
+          <image class="case-img" src="{{item.coverUrl}}" mode="aspectFill" lazy-load />
+          <view class="case-overlay">
+            <text class="case-overlay-text">查看详情</text>
+          </view>
+        </view>
+        <view class="case-info">
+          <text class="case-title">{{item.title}}</text>
+          <text class="case-category">{{item.category}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="section-footer">
+      <button class="btn-outline" bindtap="goCases">查看全部案例</button>
+    </view>
+  </view>
+
+  <!-- CTA -->
+  <view class="cta-section">
+    <text class="cta-title">有项目想聊聊？</text>
+    <text class="cta-desc">从创意构思到最终成片，全流程为您把关</text>
+    <button class="btn-primary cta-btn" open-type="contact">立即咨询</button>
+  </view>
+</view>

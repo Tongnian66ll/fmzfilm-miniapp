@@ -1,0 +1,63 @@
+<view class="page container">
+  <view class="section-header">
+    <text class="section-overline">BOOKING</text>
+    <text class="section-title">预约咨询</text>
+    <text class="section-desc">添加微信直接沟通，更高效</text>
+  </view>
+
+  <!-- 微信联系卡 -->
+  <view class="wechat-card card">
+    <text class="wechat-label">直接添加微信，一对一沟通</text>
+    <image class="wechat-qr" src="/images/wechat-qr.jpg" mode="aspectFit" show-menu-by-longpress />
+    <text class="wechat-id">微信号：njfmz1</text>
+    <button class="btn-primary wechat-btn" bindtap="copyWechat">复制微信号</button>
+  </view>
+
+  <!-- 或者填写表单 -->
+  <view class="divider"></view>
+  <text class="form-alt-title">或留下信息，我们主动联系您</text>
+
+  <!-- 报价信息 -->
+  <view class="quote-info card" wx:if="{{quoteInfo && quoteInfo.estimatedPrice > 0}}">
+    <text class="quote-label">预估报价</text>
+    <text class="quote-price">¥{{quoteInfo.estimatedPrice}}</text>
+    <text class="quote-service">{{quoteInfo.service}} × {{quoteInfo.quantity}}</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">姓名 <text class="required">*</text></text>
+      <input class="form-input" placeholder="请输入您的姓名" value="{{name}}" bindinput="onInputName" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">手机号 <text class="required">*</text></text>
+      <input class="form-input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onInputPhone" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">服务类型 <text class="required">*</text></text>
+      <picker mode="selector" range="{{serviceOptions}}" bindchange="onServiceChange">
+        <view class="form-picker {{serviceType ? '' : 'placeholder'}}">
+          {{serviceType || '请选择服务类型'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">预算范围</text>
+      <input class="form-input" placeholder="如：5000-10000" value="{{budget}}" bindinput="onInputBudget" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">需求描述</text>
+      <textarea class="form-textarea" placeholder="请描述您的项目需求、期望风格、用途等" value="{{description}}" bindinput="onInputDesc" maxlength="500" auto-height />
+    </view>
+  </view>
+
+  <view class="form-footer">
+    <button class="btn-primary submit-btn" bindtap="submitBooking" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交咨询'}}
+    </button>
+  </view>
+</view>
